@@ -584,3 +584,180 @@
 // const secbooking = function(){
 //     let pCount = 0;
 // }
+
+// ////////////////////////////////
+// //               OOPS
+
+// const Person = function (firstName, birthYear) {
+//   // Instance properties
+//   this.firstName = firstName
+//   this.birthYear = birthYear
+
+//   //   // never do this in constructor function  but use prototypes
+//   //   this.calcAge = function () {
+//   //     console.log(2037 - this.birthYear)
+//   //   }
+// }
+
+// const jonas = new Person('Jonas', 1991)
+// console.log(jonas)
+
+// // 1. New {} created
+// // 2. function is called, this = {}
+// // 3.{} linked to prototype
+// // 4.function automatically return {}
+
+// const matilda = new Person('Matilda', 1998)
+// console.log(matilda)
+
+// console.log(jonas instanceof Person)
+
+// // Prototypes
+// console.log(Person.prototype)
+
+// // Now only one copy is exist
+// Person.prototype.calcAge = function () {
+//   console.log(2037 - this.birthYear)
+// }
+
+// jonas.calcAge()
+// matilda.calcAge()
+
+// console.log(jonas.__proto__ === Person.prototype)
+
+// Person.prototype.species = 'Homo Sapiens'
+// console.log(jonas.species, matilda.species)
+
+// console.log(jonas.hasOwnProperty('firstName'))
+// console.log(jonas.hasOwnProperty('species'))
+
+// console.log(jonas.__proto__)
+
+// // Object prototype
+// console.log(jonas.__proto__.__proto__)
+
+// const arr = [3, 6, 5, 4, 3, 6, 1, 1] // same as new Array === []
+// console.log(arr.__proto__)
+// console.log(arr.__proto__ === Array.prototype)
+
+// console.log(arr.__proto__.__proto__)
+
+// Array.prototype.unique = function () {
+//   return [...new Set(this)]
+// }
+
+// console.log(arr.unique())
+
+// const Car = function (make, speed) {
+//   this.make = make
+//   this.speed = speed
+// }
+
+// Car.prototype.accelerate = function () {
+//   this.speed += 10
+//   console.log(`${this.make} is going at ${this.speed}`)
+// }
+
+// Car.prototype.brake = function () {
+//   this.speed -= 5
+//   console.log(`${this.make} is going at ${this.speed}`)
+// }
+
+// const bmw = new Car('BMW', 120)
+// const mercedes = new Car('Mercedes', 95)
+
+// bmw.accelerate()
+// bmw.accelerate()
+// bmw.brake()
+// bmw.accelerate()
+
+//
+//////////////////////////
+////            CLASSES ES6
+// class expression
+// const PersonCl = class {}
+
+// //class declaration
+// class PersonCl {
+//   constructor(fullName, birthYear) {
+//     this.fullName = fullName
+//     this.birthYear = birthYear
+//   }
+// instance method
+//   // Methods will add to .prototype property
+//   calcAge() {
+//     console.log(2037 - this.birthYear)
+//   }
+
+//   greet() {
+//     console.log(`Hey ${this.fullName}`)
+//   }
+
+//   get age() {
+//     return 2037 - this.birthYear
+//   }
+
+//   // set property that already exist
+//   set fullName(name) {
+//     console.log(name)
+//     if (name.includes(' ')) this._fullName = name
+//     else alert('Name is not full name')
+//   }
+
+//   get fullName() {
+//     return this._fullName
+//   }
+// }
+
+// const jessica = new PersonCl('Jessica David', 1996)
+// console.log(jessica)
+// jessica.calcAge()
+// console.log(jessica.age)
+
+// console.log(jessica.__proto__ === PersonCl.prototype)
+
+// // also can create
+// PersonCl.prototype.greet = function () {
+//   console.log(`Hey ${this.firstName}`)
+// }
+// jessica.greet()
+
+// 1. Classes are not hoisted so can use after declaration
+// 2. Classes are first-class-function
+// 3. Classes are executed in strict mode
+
+// SETTERS GETTERS used as just property
+// const account = {
+//   owner: 'Jonas',
+//   movements: [200, 530, 120, 300],
+
+//   get latest() {
+//     return this.movements.slice(-1).pop()
+//   },
+//   set latest(mov) {
+//     this.movements.push(mov)
+//   },
+// }
+
+// console.log(account.latest)
+// console.log(account.movements)
+
+// account.latest = 50
+// console.log(account.movements)
+
+// these are useful in data validation
+
+//
+////    OBJECT.CREATE
+
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear)
+  },
+}
+
+const steven = Object.create(PersonProto)
+steven.name = 'Steven'
+steven.birthYear = 2002
+steven.calcAge()
+console.log(steven)
